@@ -1,69 +1,97 @@
 <template>
     <div class="home">
         <div class="header">
-            <mt-header title='国电金融杯会计知识大赛' id="header"></mt-header>
+            <mu-appbar title='要点背记' id="header" slot="right">
+                <mu-icon-button icon="menu" slot="left" />
+            </mu-appbar>
         </div>
         <div class="content">
-            <div v-model="selected">
-                <div v-if="selected === '首页'" id="首页">
-                    <h1>首页</h1>
-                </div>
-                <div  v-if="selected === '收藏'" id='收藏'>
-                    <h1>收藏</h1>
-                </div>
-                <div v-if="selected === '错题'" id='错题'>
-                    <h1>错题</h1>
-                </div>
-                <div v-if="selected === '我的'" id='我的'>
-                    <h1>我的</h1>
-                </div>
-            </div>
-    
-            <div class="footer">
-                <mt-tabbar v-model="selected">
-                    <mt-tab-item id="首页">
-                        <icon slot="icon" name="home"></icon>
-                        首页
-                    </mt-tab-item>
-                    <mt-tab-item id="收藏">
-                        <icon slot="icon" name="star"></icon>
-                        收藏
-                    </mt-tab-item>
-                    <mt-tab-item id="错题">
-                        <icon slot="icon" name="book"></icon>
-                        错题
-                    </mt-tab-item>
-                    <mt-tab-item id="我的">
-                        <icon slot="icon" name="user-circle-o"></icon>
-                        我的
-                    </mt-tab-item>
-                </mt-tabbar>
-            </div>
+            <mu-paper :zDepth="2">
+                <mu-card>
+                    <mu-card-title title="content"/>
+                    <mu-card-text >
+                    </mu-card-text>
+                </mu-card>
+            </mu-paper>
+        </div>
+        <div class="navibar">
+            <mu-paper>
+                <mu-bottom-nav :value="bottomNav" @change="handleChange">
+                    <mu-bottom-nav-item value="home" title="首页" icon="home" />
+                    <mu-bottom-nav-item value="favorites" title="收藏" icon="grade" />
+                    <mu-bottom-nav-item value="wrong" title="错题" icon="book" />
+                    <mu-bottom-nav-item value="me" title="我" icon="account_circle" />
+                </mu-bottom-nav>
+            </mu-paper>
         </div>
     </div>
 </template>
 
 <script>
-    // import Icon from 'vue-awesome/components/Icon'
-    export default {
-        name: 'home',
-        data() {
-            return {
-                selected: '首页'
-            }  
+export default {
+    name: 'home',
+    data() {
+        return {
+            bottomNav: 'home',
+            content: {
+            }
         }
-    }
+    },
+    created() {
+        // GET /someUrl
+        this.$http.get('/api/read').then(response => {
+
+            // get body data
+            response = response.body
+            if (response.errno === 0) {
+                this.content = Object.assign({}, this.content, response.data);
+            }
+
+        }, response => {
+            // error callback
+        });
+    },
+    methods: {
+        handleChange(val) {
+            this.bottomNav = val
+        }
+    },
+
+}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .header {
-        display: block;
-        height: 20%;
-    }
-    
-    #header {
-        font-size: 16px;
-        height: 50px;
-    }
+.header {
+    display: block;
+    height: 20%;
+}
+
+.list {
+    margin-top: 5px;
+    display: block;
+}
+
+.button {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    font-size: 24px;
+    padding: 0 12px;
+    height: 53px;
+    margin-top: 100px;
+}
+
+
+#header {
+    font-size: 16px;
+    height: 50px;
+}
+
+.navibar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 </style>

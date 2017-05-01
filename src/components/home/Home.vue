@@ -1,74 +1,78 @@
 <template>
     <div class="home">
         <div class="header">
-            <mt-header title='国电金融杯会计知识大赛' id="header"></mt-header>
+            <mu-appbar title='国电金融杯会计知识大赛' id="header" slot="right"></mu-appbar>
         </div>
         <div class="content">
             <div class="list">
                 <router-link to="/read">
-                    <mt-button type="primary" class="button btn1">
-                        <icon slot="icon" name="file-text-o" scale='1.5'></icon>要点背记</mt-button>
+                    <mu-raised-button class="button btn1" label="要点背记" icon="description" primary/>
                 </router-link>
-                <mt-button type="primary" class="button btn2">
-                    <icon slot="icon" name="pencil-square-o" scale='1.5'></icon>单项练习</mt-button>
-    
-                <mt-button type="danger" class="button btn3">
-                    <icon slot="icon" name="line-chart" scale='1.5'></icon>模拟测试</mt-button>
-    
+                <mu-raised-button class="button btn2" label="单项练习" icon="question_answer" primary/>
+                <mu-raised-button class="button btn3" label="模拟测试" icon="trending_up" primary/>
             </div>
         </div>
-    </div>
+        <div class="navibar">
+            <mu-paper>
+                <mu-bottom-nav :value="bottomNav" @change="handleChange">
+                    <mu-bottom-nav-item value="recents" title="Recents" icon="restore"/>
+                    <mu-bottom-nav-item value="favorites" title="Favorites" icon="favorite" />
+                    <mu-bottom-nav-item value="nearby" title="Nearby" icon="location_on" />
+                    <mu-bottom-nav-item value="nearby" title="Nearby" icon="location_on" />
+                </mu-bottom-nav>
+            </mu-paper>
+        </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'home',
-        data() {
-            return {
-                selected: '首页'
-            }
-    
+export default {
+    name: 'home',
+    data() {
+        return {
+            bottomNav: 'recents'
+        }
+    },
+    methods: {
+        handleChange(val) {
+            this.bottomNav = val
         }
     }
+}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .header {
-        display: block;
-        height: 20%;
-    }
-    
-    .list {
-        margin-top: 5px;
-        display: block;
-    }
-    
-    .button {
-        width: 80%;
-        margin: 0 auto;
-        display: block;
-        font-size: 24px;
-        padding: 0 12px;
-        height: 53px;
-        margin-top: 100px;
-    }
-    
-    .btn1 {
-        background: #ffa726;
-    }
-    
-    .btn2 {
-        background: #738ffe;
-    }
-    
-    .btn3 {
-        background: #ff7043;
-    }
-    
-    #header {
-        font-size: 16px;
-        height: 50px;
-    }
+.header {
+    display: block;
+    height: 20%;
+}
+
+.list {
+    margin-top: 5px;
+    display: block;
+}
+
+.button {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    font-size: 24px;
+    padding: 0 12px;
+    height: 53px;
+    margin-top: 100px;
+}
+
+
+#header {
+    font-size: 16px;
+    height: 50px;
+}
+
+.navibar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 </style>

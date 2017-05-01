@@ -3,20 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { Button } from 'mint-ui'
-import { Header } from 'mint-ui'
-import { Tabbar, TabItem } from 'mint-ui'
-import 'vue-awesome/icons'
-import Icon from 'vue-awesome/components/Icon'
+import MuseUI from 'muse-ui'
+import VueResource from 'vue-resource'
+import 'muse-ui/dist/muse-ui.css'
 
-// globally (in your main .js file)
-Vue.component('icon', Icon)
-
-Vue.component(Tabbar.name, Tabbar)
-Vue.component(TabItem.name, TabItem)
-Vue.component(Header.name, Header)
-Vue.component(Button.name, Button)
-
+Vue.use(MuseUI)
+Vue.use(VueResource)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

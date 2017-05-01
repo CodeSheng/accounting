@@ -23,6 +23,18 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var compiler = webpack(webpackConfig)
 
+// 数据api
+var appData = require('../data.json')
+var apiRoutes = express.Router()
+apiRoutes.get('/read', function (req, res) {
+	res.json({
+		errno: 0,
+		data: appData
+	});
+})
+app.use('/api', apiRoutes)
+
+
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true

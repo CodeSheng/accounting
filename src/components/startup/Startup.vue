@@ -7,9 +7,7 @@
             <p align="center">劳资非要拿下调考</p>
         </div>
         <div class="button">
-            <router-link to="/home">
-                <mt-button type="default" class="start"> 开始学习
-                </mt-button>
+            <mu-raised-button label="开始学习" to="/read" class="start"/>
             </router-link>
         </div>
     </div>
@@ -68,6 +66,7 @@
         display: block;
         width: 200px;
         margin: 0 auto;
+        font-size: 22px;    
     }
     
 </style>
